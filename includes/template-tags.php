@@ -73,7 +73,7 @@ final class Oops_Tags {
 	 * @access public
 	 * @return void
 	 */
-	public function posted_on() {
+	public static function posted_on() {
 
 		// Get the author name; wrap it in a link.
 		$byline = sprintf(
@@ -94,7 +94,7 @@ final class Oops_Tags {
 	 * @access public
 	 * @return void
 	 */
-	public function time_link() {
+	public static function time_link() {
 
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
@@ -125,7 +125,7 @@ final class Oops_Tags {
 	 * @access public
 	 * @return void
 	 */
-	public function entry_footer() {
+	public static function entry_footer() {
 
 		/* translators: used between list items, there is a space after the comma */
 		$separate_meta = __( ', ', 'twentyseventeen-oops' );
@@ -177,7 +177,7 @@ final class Oops_Tags {
 	 * @access public
 	 * @return string
 	 */
-	public function edit_link() {
+	public static function edit_link() {
 
 		edit_post_link(
 			sprintf(
@@ -199,7 +199,7 @@ final class Oops_Tags {
 	 * @param  WP_Customize_Partial $partial Partial associated with a selective refresh request.
 	 * @param  integer              $id Front page section to display.
 	 */
-	public function front_page_section( $partial = null, $id = 0 ) {
+	public static function front_page_section( $partial = null, $id = 0 ) {
 
 		if ( is_a( $partial, 'WP_Customize_Partial' ) ) {
 
@@ -238,7 +238,7 @@ final class Oops_Tags {
 	 * @access public
 	 * @return bool
 	 */
-	public function categorized_blog() {
+	public static function categorized_blog() {
 
 		$category_count = get_transient( 'twentyseventeen_categories' );
 

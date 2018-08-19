@@ -134,7 +134,7 @@ final class Oops_Templates {
 	 * @access public
 	 * @return int
 	 */
-	public function panel_count() {
+	public static function panel_count() {
 
 		$panel_count = 0;
 
@@ -165,7 +165,7 @@ final class Oops_Templates {
 	 * @access public
 	 * @return object
 	 */
-	public function is_frontpage() {
+	public static function is_frontpage() {
 
 		return ( is_front_page() && ! is_home() );
 
