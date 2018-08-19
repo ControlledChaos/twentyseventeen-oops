@@ -1,6 +1,6 @@
 <?php
 /**
- * Twenty Seventeen functions and definitions
+ * Twenty Seventeen Oops! functions and definitions.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -38,7 +38,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.7-alpha', '<' ) ) {
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 /**
- * Define the core functionality of the plugin.
+ * Twenty Seventeen Oops! functions and definitions.
  *
  * @since  1.0.0
  * @access public
@@ -64,6 +64,7 @@ final class Oops_Functions {
 
 			// Get class dependencies.
 			$instance->dependencies();
+
 		}
 
 		// Return the instance.
@@ -287,10 +288,10 @@ final class Oops_Functions {
 
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
-			array(
+			[
 				'top'    => __( 'Top Menu', 'twentyseventeen-oops' ),
 				'social' => __( 'Social Links Menu', 'twentyseventeen-oops' ),
-			)
+			]
 		);
 
 		/*
@@ -298,12 +299,12 @@ final class Oops_Functions {
 		* to output valid HTML5.
 		*/
 		add_theme_support(
-			'html5', array(
+			'html5', [
 				'comment-form',
 				'comment-list',
 				'gallery',
 				'caption',
-			)
+			]
 		);
 
 		/*
@@ -312,7 +313,7 @@ final class Oops_Functions {
 		* See: https://codex.wordpress.org/Post_Formats
 		*/
 		add_theme_support(
-			'post-formats', array(
+			'post-formats', [
 				'aside',
 				'image',
 				'video',
@@ -320,17 +321,17 @@ final class Oops_Functions {
 				'link',
 				'gallery',
 				'audio',
-			)
+			]
 		);
 
 		// Add theme support for Custom Logo.
 		add_theme_support(
-			'custom-logo', array(
+			'custom-logo', [
 				'width'      => 250,
 				'height'     => 250,
 				'flex-width' => true,
 				'flex-height' => true,
-			)
+			]
 		);
 
 		// Add theme support for selective refresh for widgets.
@@ -340,104 +341,104 @@ final class Oops_Functions {
 		* This theme styles the visual editor to resemble the theme style,
 		* specifically font, colors, and column width.
 		*/
-		add_editor_style( array( 'assets/css/editor-style.css', $this::fonts_url() ) );
+		add_editor_style( [ 'assets/css/editor-style.css', $this::fonts_url() ] );
 
 		// Define and register starter content to showcase the theme on new sites.
-		$starter_content = array(
-			'widgets'     => array(
+		$starter_content = [
+			'widgets'     => [
 				// Place three core-defined widgets in the sidebar area.
-				'sidebar-1' => array(
+				'sidebar-1' => [
 					'text_business_info',
 					'search',
 					'text_about',
-				),
+				],
 
 				// Add the core-defined business info widget to the footer 1 area.
-				'sidebar-2' => array(
+				'sidebar-2' => [
 					'text_business_info',
-				),
+				],
 
 				// Put two core-defined widgets in the footer 2 area.
-				'sidebar-3' => array(
+				'sidebar-3' => [
 					'text_about',
 					'search',
-				),
-			),
+				],
+			],
 
 			// Specify the core-defined pages to create and add custom thumbnails to some of them.
-			'posts'       => array(
+			'posts'       => [
 				'home',
-				'about'            => array(
+				'about'            => [
 					'thumbnail' => '{{image-sandwich}}',
-				),
-				'contact'          => array(
+				],
+				'contact'          => [
 					'thumbnail' => '{{image-espresso}}',
-				),
-				'blog'             => array(
+				],
+				'blog'             => [
 					'thumbnail' => '{{image-coffee}}',
-				),
-				'homepage-section' => array(
+				],
+				'homepage-section' => [
 					'thumbnail' => '{{image-espresso}}',
-				),
-			),
+				],
+			],
 
 			// Create the custom image attachments used as post thumbnails for pages.
-			'attachments' => array(
-				'image-espresso' => array(
+			'attachments' => [
+				'image-espresso' => [
 					'post_title' => _x( 'Espresso', 'Theme starter content', 'twentyseventeen-oops' ),
 					'file'       => 'assets/images/espresso.jpg', // URL relative to the template directory.
-				),
-				'image-sandwich' => array(
+				],
+				'image-sandwich' => [
 					'post_title' => _x( 'Sandwich', 'Theme starter content', 'twentyseventeen-oops' ),
 					'file'       => 'assets/images/sandwich.jpg',
-				),
-				'image-coffee'   => array(
+				],
+				'image-coffee'   => [
 					'post_title' => _x( 'Coffee', 'Theme starter content', 'twentyseventeen-oops' ),
 					'file'       => 'assets/images/coffee.jpg',
-				),
-			),
+				],
+			],
 
 			// Default to a static front page and assign the front and posts pages.
-			'options'     => array(
+			'options'     => [
 				'show_on_front'  => 'page',
 				'page_on_front'  => '{{home}}',
 				'page_for_posts' => '{{blog}}',
-			),
+			],
 
 			// Set the front page section theme mods to the IDs of the core-registered pages.
-			'theme_mods'  => array(
+			'theme_mods'  => [
 				'panel_1' => '{{homepage-section}}',
 				'panel_2' => '{{about}}',
 				'panel_3' => '{{blog}}',
 				'panel_4' => '{{contact}}',
-			),
+			],
 
 			// Set up nav menus for each of the two areas registered in the theme.
-			'nav_menus'   => array(
+			'nav_menus'   => [
 				// Assign a menu to the "top" location.
-				'top'    => array(
+				'top'    => [
 					'name'  => __( 'Top Menu', 'twentyseventeen-oops' ),
-					'items' => array(
+					'items' => [
 						'link_home', // Note that the core "home" page is actually a link in case a static front page is not used.
 						'page_about',
 						'page_blog',
 						'page_contact',
-					),
-				),
+					],
+				],
 
 				// Assign a menu to the "social" location.
-				'social' => array(
+				'social' => [
 					'name'  => __( 'Social Links Menu', 'twentyseventeen-oops' ),
-					'items' => array(
+					'items' => [
 						'link_yelp',
 						'link_facebook',
 						'link_twitter',
 						'link_instagram',
 						'link_email',
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 
 		/**
 		 * Filters Twenty Seventeen array of starter content.
@@ -513,14 +514,14 @@ final class Oops_Functions {
 		$libre_franklin = _x( 'on', 'Libre Franklin font: on or off', 'twentyseventeen-oops' );
 
 		if ( 'off' !== $libre_franklin ) {
-			$font_families = array();
+			$font_families = [];
 
 			$font_families[] = 'Libre Franklin:300,300i,400,400i,600,600i,800,800i';
 
-			$query_args = array(
+			$query_args = [
 				'family' => urlencode( implode( '|', $font_families ) ),
 				'subset' => urlencode( 'latin,latin-ext' ),
-			);
+			];
 
 			$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
 		}
@@ -541,10 +542,10 @@ final class Oops_Functions {
 	function resource_hints( $urls, $relation_type ) {
 
 		if ( wp_style_is( 'twentyseventeen-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
-			$urls[] = array(
+			$urls[] = [
 				'href' => 'https://fonts.gstatic.com',
 				'crossorigin',
-			);
+			];
 		}
 
 		return $urls;
@@ -562,7 +563,7 @@ final class Oops_Functions {
 	 */
 	function widgets_init() {
 		register_sidebar(
-			array(
+			[
 				'name'          => __( 'Blog Sidebar', 'twentyseventeen-oops' ),
 				'id'            => 'sidebar-1',
 				'description'   => __( 'Add widgets here to appear in your sidebar on blog posts and archive pages.', 'twentyseventeen-oops' ),
@@ -570,11 +571,11 @@ final class Oops_Functions {
 				'after_widget'  => '</section>',
 				'before_title'  => '<h2 class="widget-title">',
 				'after_title'   => '</h2>',
-			)
+			]
 		);
 
 		register_sidebar(
-			array(
+			[
 				'name'          => __( 'Footer 1', 'twentyseventeen-oops' ),
 				'id'            => 'sidebar-2',
 				'description'   => __( 'Add widgets here to appear in your footer.', 'twentyseventeen-oops' ),
@@ -582,11 +583,11 @@ final class Oops_Functions {
 				'after_widget'  => '</section>',
 				'before_title'  => '<h2 class="widget-title">',
 				'after_title'   => '</h2>',
-			)
+			]
 		);
 
 		register_sidebar(
-			array(
+			[
 				'name'          => __( 'Footer 2', 'twentyseventeen-oops' ),
 				'id'            => 'sidebar-3',
 				'description'   => __( 'Add widgets here to appear in your footer.', 'twentyseventeen-oops' ),
@@ -594,7 +595,7 @@ final class Oops_Functions {
 				'after_widget'  => '</section>',
 				'before_title'  => '<h2 class="widget-title">',
 				'after_title'   => '</h2>',
-			)
+			]
 		);
 
 	}
@@ -651,51 +652,51 @@ final class Oops_Functions {
 	function enqueue_scripts() {
 
 		// Add custom fonts, used in the main stylesheet.
-		wp_enqueue_style( 'oops-fonts', $this::fonts_url(), array(), null );
+		wp_enqueue_style( 'oops-fonts', $this::fonts_url(), [], null );
 
 		// Theme stylesheet.
 		wp_enqueue_style( 'oops-style', get_stylesheet_uri() );
 
 		// Load the dark colorscheme.
 		if ( 'dark' === get_theme_mod( 'colorscheme', 'light' ) || is_customize_preview() ) {
-			wp_enqueue_style( 'oops-colors-dark', get_theme_file_uri( '/assets/css/colors-dark.css' ), array( 'oops-style' ), '1.0' );
+			wp_enqueue_style( 'oops-colors-dark', get_theme_file_uri( '/assets/css/colors-dark.css' ), [ 'oops-style' ], '1.0' );
 		}
 
 		// Load the Internet Explorer 9 specific stylesheet, to fix display issues in the Customizer.
 		if ( is_customize_preview() ) {
-			wp_enqueue_style( 'oops-ie9', get_theme_file_uri( '/assets/css/ie9.css' ), array( 'oops-style' ), '1.0' );
+			wp_enqueue_style( 'oops-ie9', get_theme_file_uri( '/assets/css/ie9.css' ), [ 'oops-style' ], '1.0' );
 			wp_style_add_data( 'oops-ie9', 'conditional', 'IE 9' );
 		}
 
 		// Load the Internet Explorer 8 specific stylesheet.
-		wp_enqueue_style( 'oops-ie8', get_theme_file_uri( '/assets/css/ie8.css' ), array( 'oops-style' ), '1.0' );
+		wp_enqueue_style( 'oops-ie8', get_theme_file_uri( '/assets/css/ie8.css' ), [ 'oops-style' ], '1.0' );
 		wp_style_add_data( 'oops-ie8', 'conditional', 'lt IE 9' );
 
 		// Load the html5 shiv.
-		wp_enqueue_script( 'html5', get_theme_file_uri( '/assets/js/html5.js' ), array(), '3.7.3' );
+		wp_enqueue_script( 'html5', get_theme_file_uri( '/assets/js/html5.js' ), [], '3.7.3' );
 		wp_script_add_data( 'html5', 'conditional', 'lt IE 9' );
 
-		wp_enqueue_script( 'oops-skip-link-focus-fix', get_theme_file_uri( '/assets/js/skip-link-focus-fix.js' ), array(), '1.0', true );
+		wp_enqueue_script( 'oops-skip-link-focus-fix', get_theme_file_uri( '/assets/js/skip-link-focus-fix.js' ), [], '1.0', true );
 
-		$twentyseventeen_l10n = array(
-			'quote' => twentyseventeen_get_svg( array( 'icon' => 'quote-right' ) ),
-		);
+		$twentyseventeen_l10n = [
+			'quote' => twentyseventeen_get_svg( [ 'icon' => 'quote-right' ] ),
+		];
 
 		if ( has_nav_menu( 'top' ) ) {
-			wp_enqueue_script( 'oops-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), array( 'jquery' ), '1.0', true );
+			wp_enqueue_script( 'oops-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), [ 'jquery' ], '1.0', true );
 			$twentyseventeen_l10n['expand']   = __( 'Expand child menu', 'twentyseventeen-oops' );
 			$twentyseventeen_l10n['collapse'] = __( 'Collapse child menu', 'twentyseventeen-oops' );
 			$twentyseventeen_l10n['icon']     = twentyseventeen_get_svg(
-				array(
+				[
 					'icon'     => 'angle-down',
 					'fallback' => true,
-				)
+				]
 			);
 		}
 
-		wp_enqueue_script( 'oops-global', get_theme_file_uri( '/assets/js/global.js' ), array( 'jquery' ), '1.0', true );
+		wp_enqueue_script( 'oops-global', get_theme_file_uri( '/assets/js/global.js' ), [ 'jquery' ], '1.0', true );
 
-		wp_enqueue_script( 'jquery-scrollto', get_theme_file_uri( '/assets/js/jquery.scrollTo.js' ), array( 'jquery' ), '2.1.2', true );
+		wp_enqueue_script( 'jquery-scrollto', get_theme_file_uri( '/assets/js/jquery.scrollTo.js' ), [ 'jquery' ], '2.1.2', true );
 
 		wp_localize_script( 'oops-skip-link-focus-fix', 'twentyseventeenScreenReaderText', $twentyseventeen_l10n );
 
