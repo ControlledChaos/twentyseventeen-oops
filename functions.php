@@ -315,6 +315,58 @@ final class Oops_Functions {
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
+		// Block editor wide images.
+		add_theme_support( 'align-wide' );
+
+		/**
+		 * Color arguments.
+		 *
+		 * Some WordPress admin colors used here for demonstration.
+		 */
+		$color_args = [
+			[
+				'name'  => __( 'White', 'controlled-chaos' ),
+				'slug'  => 'oops-white',
+				'color' => '#fff',
+			],
+			[
+				'name'  => __( 'Light Gray', 'controlled-chaos' ),
+				'slug'  => 'oops-wp-gray',
+				'color' => '#cccccc',
+			],
+			[
+				'name'  => __( 'Medium Gray', 'controlled-chaos' ),
+				'slug'  => 'oops-wp-gray',
+				'color' => '#888888',
+			],
+			[
+				'name'  => __( 'Dark Gray', 'controlled-chaos' ),
+				'slug'  => 'oops-wp-gray',
+				'color' => '#222222',
+			],
+			[
+				'name'  => __( 'Success Green', 'controlled-chaos' ),
+				'slug'  => 'oops-wp-light-blue',
+				'color' => '#46b450',
+			],
+			[
+				'name'  => __( 'Error Red', 'controlled-chaos' ),
+				'slug'  => 'oops-wp-light-blue',
+				'color' => '#dc3232',
+			],
+			[
+				'name'  => __( 'Warning Yellow', 'controlled-chaos' ),
+				'slug'  => 'oops-wp-light-blue',
+				'color' => '#ffb900',
+			]
+		];
+
+		// Apply a filter to editor arguments.
+		$colors = apply_filters( 'oops_editor_colors', $color_args );
+
+		// Add color support.
+		add_theme_support( 'editor-color-palette', $colors );
+
 		/**
 		 * This theme styles the visual editor to resemble the theme style,
 		 * specifically font, colors, and column width.
