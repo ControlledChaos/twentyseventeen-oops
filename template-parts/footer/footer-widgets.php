@@ -3,7 +3,7 @@
  * Displays footer widgets if assigned
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Twenty_Seventeen_Oops
  * @since 1.0
  * @version 1.0
  */
