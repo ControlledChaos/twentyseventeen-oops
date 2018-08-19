@@ -25,7 +25,7 @@ Will add here as they are developed.
 * Add ~~a block editor color scheme,~~ possibly with customizer options.
 * Add a customizer option for the number of front page panels.
 * Add a customizer option for single column blog index.
-* Add a customizer option to remove front page panel featured images or resize/reposition them.
+* Add a customizer option to ~~remove front page panel featured images~~ or resize/reposition them.
 * Add a customizer option for the number of recent posts in  blog front page panel.
 * Add a customizer option to use a header image overlay.
 * Rename this when development is further along. It's best not to have it tied to a year.

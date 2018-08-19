@@ -144,6 +144,51 @@ class Oops_Customizer {
 		);
 
 		/**
+		 * Front page featured images.
+		 */
+		$wp_customize->add_setting(
+			'front_page_featured_image', [
+				'default'           => 'no',
+				'transport'         => 'refresh',
+				'sanitize_callback' => [ $this, 'sanitize_front_page_featured_image' ],
+			]
+		);
+
+		$wp_customize->add_control(
+			'front_page_featured_image', [
+				'section'     => 'theme_options',
+				'type'        => 'radio',
+				'label'       => __( 'Front Page Featured Image', 'twentyseventeen-oops' ),
+				'description' => __( 'Display the featured image from page used as a static front page?', 'twentyseventeen-oops' ),
+				'choices'     => [
+					'no'  => __( 'No', 'twentyseventeen-oops' ),
+					'yes' => __( 'Yes', 'twentyseventeen-oops' ),
+				],
+			]
+		);
+
+		$wp_customize->add_setting(
+			'front_panel_featured_images', [
+				'default'           => 'no',
+				'transport'         => 'refresh',
+				'sanitize_callback' => [ $this, 'sanitize_front_panel_featured_images' ],
+			]
+		);
+
+		$wp_customize->add_control(
+			'front_panel_featured_images', [
+				'section'     => 'theme_options',
+				'type'        => 'radio',
+				'label'       => __( 'Front Page Featured Images', 'twentyseventeen-oops' ),
+				'description' => __( 'Display featured images from pages used in front page panels?', 'twentyseventeen-oops' ),
+				'choices'     => [
+					'no'  => __( 'No', 'twentyseventeen-oops' ),
+					'yes' => __( 'Yes', 'twentyseventeen-oops' ),
+				],
+			]
+		);
+
+		/**
 		 * Filter number of front page sections in Twenty Seventeen.
 		 *
 		 * @since  1.0.0
@@ -287,6 +332,50 @@ class Oops_Customizer {
 
 		// This option is available on all pages. It's also available on archives when there isn't a sidebar.
 		return ( is_page() || ( is_archive() && ! is_active_sidebar( 'sidebar-1' ) ) );
+
+	}
+
+	/**
+	 * Return whether to use featured images for front page panels.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public static function sanitize_front_page_featured_image( $input ) {
+
+		$valid = [
+			'no',
+			'yes'
+		];
+
+		if ( in_array( $input, $valid, true ) ) {
+			return $input;
+		}
+
+		return 'no';
+
+	}
+
+	/**
+	 * Return whether to use featured images for front page panels.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public static function sanitize_front_panel_featured_images( $input ) {
+
+		$valid = [
+			'no',
+			'yes'
+		];
+
+		if ( in_array( $input, $valid, true ) ) {
+			return $input;
+		}
+
+		return 'no';
 
 	}
 
