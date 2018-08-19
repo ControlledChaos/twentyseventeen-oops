@@ -1,52 +1,29 @@
 <?php
 /**
- * Twenty Seventeen Oops! color patterns.
+ * Twenty Seventeen: Color Patterns
  *
- * @package    WordPress
+ * @package WordPress
  * @subpackage Twenty_Seventeen_Oops
- * @since      1.0.0
+ * @since 1.0
  */
 
 /**
- * Twenty Seventeen Oops! back compat functionality.
- *
- * @since  1.0.0
- * @access public
+ * Generate the CSS for the current custom color scheme.
  */
-class Oops_Color_Patterns {
+function oops_custom_colors_css() {
+	$hue = absint( get_theme_mod( 'colorscheme_hue', 250 ) );
 
 	/**
-	 * Constructor method.
+	 * Filter Twenty Seventeen default saturation level.
 	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return self
+	 * @since Twenty Seventeen 1.0
+	 *
+	 * @param int $saturation Color saturation level.
 	 */
-	public function __construct() {
-
-		// Generate the CSS for the current custom color scheme.
-		$this->custom_colors_css();
-
-	}
-
-	/**
-	 * Generate the CSS for the current custom color scheme.
-	 */
-	function custom_colors_css() {
-
-		$hue = absint( get_theme_mod( 'colorscheme_hue', 250 ) );
-
-		/**
-		 * Filter Twenty Seventeen default saturation level.
-		 *
-		 * @since Twenty Seventeen 1.0
-		 *
-		 * @param int $saturation Color saturation level.
-		 */
-		$saturation         = absint( apply_filters( 'oops_custom_colors_saturation', 50 ) );
-		$reduced_saturation = ( .8 * $saturation ) . '%';
-		$saturation         = $saturation . '%';
-		$css                = '
+	$saturation         = absint( apply_filters( 'twentyseventeen_custom_colors_saturation', 50 ) );
+	$reduced_saturation = ( .8 * $saturation ) . '%';
+	$saturation         = $saturation . '%';
+	$css                = '
 /**
  * Twenty Seventeen: Color Patterns
  *
@@ -590,20 +567,14 @@ body.colors-custom,
 	}
 }';
 
-		/**
-		 * Filters Twenty Seventeen custom colors CSS.
-		 *
-		 * @since Twenty Seventeen 1.0
-		 *
-		 * @param string $css        Base theme colors CSS.
-		 * @param int    $hue        The user's selected color hue.
-		 * @param string $saturation Filtered theme color saturation level.
-		 */
-		return apply_filters( 'oops_custom_colors_css', $css, $hue, $saturation );
-
-	}
-
+	/**
+	 * Filters Twenty Seventeen custom colors CSS.
+	 *
+	 * @since Twenty Seventeen 1.0
+	 *
+	 * @param string $css        Base theme colors CSS.
+	 * @param int    $hue        The user's selected color hue.
+	 * @param string $saturation Filtered theme color saturation level.
+	 */
+	return apply_filters( 'oops_custom_colors_css', $css, $hue, $saturation );
 }
-
-// Run an instance of the class.
-$oops_color_patterns = new Oops_Color_Patterns();

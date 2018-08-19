@@ -637,7 +637,7 @@ final class Oops_Functions {
 		}
 	?>
 		<style type="text/css" id="custom-theme-colors" <?php echo $customize_preview_data_hue; ?>>
-			<?php echo twentyseventeen_custom_colors_css(); ?>
+			<?php echo Oops_Color_Patterns::custom_colors_css(); ?>
 		</style>
 	<?php
 	}

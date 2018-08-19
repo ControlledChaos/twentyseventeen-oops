@@ -1,12 +1,12 @@
 <?php
 /**
- * Custom template tags for this theme
+ * Custom template tags for this theme.
  *
  * Eventually, some of the functionality here could be replaced by core features.
  *
- * @package WordPress
+ * @package    WordPress
  * @subpackage Twenty_Seventeen_Oops
- * @since 1.0
+ * @since      1.0.0
  */
 
 if ( ! function_exists( 'twentyseventeen_posted_on' ) ) :

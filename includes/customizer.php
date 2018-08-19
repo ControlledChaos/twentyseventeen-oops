@@ -1,6 +1,6 @@
 <?php
 /**
- * Twenty Seventeen Oops! Customizer
+ * Twenty Seventeen Oops! Customizer.
  *
  * @package    WordPress
  * @subpackage Twenty_Seventeen_Oops
@@ -8,45 +8,21 @@
  */
 
 /**
- * Twenty Seventeen Oops! functions and definitions.
+ * Twenty Seventeen Oops! Customizer.
  *
  * @since  1.0.0
  * @access public
  */
-final class Oops_Customizer {
-
-	/**
-	 * Get an instance of the class.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @return object Returns the instance.
-	 */
-	public static function instance() {
-
-		// Varialbe for the instance to be used outside the class.
-		static $instance = null;
-
-		if ( is_null( $instance ) ) {
-
-			// Set variable for new instance.
-			$instance = new self;
-
-		}
-
-		// Return the instance.
-		return $instance;
-
-	}
+class Oops_Customizer {
 
 	/**
 	 * Constructor method.
 	 *
 	 * @since  1.0.0
-	 * @access private
+	 * @access public
 	 * @return self
 	 */
-	private function __construct() {
+	public function __construct() {
 
 		// Register Customizer options.
 		add_action( 'customize_register', [ $this, 'customize_register' ] );
@@ -338,18 +314,5 @@ final class Oops_Customizer {
 
 }
 
-/**
- * Put an instance of the class into a function.
- *
- * @since  1.0.0
- * @access public
- * @return object Returns an instance of the class.
- */
-function oops_customizer() {
-
-	return Oops_Customizer::instance();
-
-}
-
 // Run an instance of the class.
-oops_customizer();
+$oops_customizer = new Oops_Customizer();
