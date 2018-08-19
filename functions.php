@@ -458,7 +458,7 @@ final class Oops_Functions {
 
 		// Check if layout is one column.
 		if ( 'one-column' === $page_layout ) {
-			if ( twentyseventeen_is_frontpage() ) {
+			if ( Oops_Templates::is_frontpage() ) {
 				$content_width = 644;
 			} elseif ( is_page() ) {
 				$content_width = 740;
@@ -662,14 +662,14 @@ final class Oops_Functions {
 		wp_enqueue_script( 'oops-skip-link-focus-fix', get_theme_file_uri( '/assets/js/skip-link-focus-fix.js' ), [], '1.0', true );
 
 		$twentyseventeen_l10n = [
-			'quote' => twentyseventeen_get_svg( [ 'icon' => 'quote-right' ] ),
+			'quote' => Oops_Icons::get_svg( [ 'icon' => 'quote-right' ] ),
 		];
 
 		if ( has_nav_menu( 'top' ) ) {
 			wp_enqueue_script( 'oops-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), [ 'jquery' ], '1.0', true );
 			$twentyseventeen_l10n['expand']   = __( 'Expand child menu', 'twentyseventeen-oops' );
 			$twentyseventeen_l10n['collapse'] = __( 'Collapse child menu', 'twentyseventeen-oops' );
-			$twentyseventeen_l10n['icon']     = twentyseventeen_get_svg(
+			$twentyseventeen_l10n['icon']     = Oops_Icons::get_svg(
 				[
 					'icon'     => 'angle-down',
 					'fallback' => true,

@@ -33,7 +33,7 @@ global $twentyseventeencounter;
 			<header class="entry-header">
 				<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
 
-				<?php twentyseventeen_edit_link( get_the_ID() ); ?>
+				<?php Oops_Tags::edit_link( get_the_ID() ); ?>
 
 			</header><!-- .entry-header -->
 
@@ -57,12 +57,12 @@ global $twentyseventeencounter;
 				<?php
 				// Show three most recent posts.
 				$recent_posts = new WP_Query(
-					array(
+					[
 						'posts_per_page'      => 3,
 						'post_status'         => 'publish',
 						'ignore_sticky_posts' => true,
 						'no_found_rows'       => true,
-					)
+					]
 				);
 				?>
 

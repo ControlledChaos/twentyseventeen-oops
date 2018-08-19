@@ -15,7 +15,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
 	if ( is_sticky() && is_home() ) {
-		echo twentyseventeen_get_svg( array( 'icon' => 'thumb-tack' ) );
+		echo Oops_Icons::get_svg( [ 'icon' => 'thumb-tack' ] );
 	}
 	?>
 	<header class="entry-header">
@@ -23,10 +23,10 @@
 		if ( 'post' === get_post_type() ) {
 			echo '<div class="entry-meta">';
 			if ( is_single() ) {
-				twentyseventeen_posted_on();
+				echo Oops_Tags::posted_on();
 			} else {
-				echo twentyseventeen_time_link();
-				twentyseventeen_edit_link();
+				echo Oops_Tags::time_link();
+				echo Oops_Tags::edit_link();
 			}
 				echo '</div><!-- .entry-meta -->';
 		};
@@ -47,7 +47,7 @@
 
 		// Only get video from the content if a playlist isn't present.
 	if ( false === strpos( $content, 'wp-playlist-script' ) ) {
-		$video = get_media_embedded_in_content( $content, array( 'video', 'object', 'embed', 'iframe' ) );
+		$video = get_media_embedded_in_content( $content, [ 'video', 'object', 'embed', 'iframe' ] );
 	}
 	?>
 
@@ -86,12 +86,12 @@
 			);
 
 			wp_link_pages(
-				array(
+				[
 					'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen-oops' ),
 					'after'       => '</div>',
 					'link_before' => '<span class="page-number">',
 					'link_after'  => '</span>',
-				)
+				]
 			);
 		};
 		?>
@@ -100,7 +100,7 @@
 
 	<?php
 	if ( is_single() ) {
-		twentyseventeen_entry_footer();
+		echo Oops_Tags::entry_footer();
 	}
 	?>
 

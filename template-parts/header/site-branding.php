@@ -30,8 +30,8 @@
 			<?php endif; ?>
 		</div><!-- .site-branding-text -->
 
-		<?php if ( ( twentyseventeen_is_frontpage() || ( is_home() && is_front_page() ) ) && ! has_nav_menu( 'top' ) ) : ?>
-		<a href="#content" class="menu-scroll-down"><?php echo twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ); ?><span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen-oops' ); ?></span></a>
+		<?php if ( ( Oops_Templates::is_frontpage() || ( is_home() && is_front_page() ) ) && ! has_nav_menu( 'top' ) ) : ?>
+		<a href="#content" class="menu-scroll-down"><?php echo Oops_Icons::get_svg( array( 'icon' => 'arrow-right' ) ); ?><span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen-oops' ); ?></span></a>
 	<?php endif; ?>
 
 	</div><!-- .wrap -->

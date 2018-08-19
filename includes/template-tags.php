@@ -9,11 +9,71 @@
  * @since      1.0.0
  */
 
-if ( ! function_exists( 'twentyseventeen_posted_on' ) ) :
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * SVG icons related functions and filters.
+ *
+ * @since  1.0.0
+ * @access public
+ */
+final class Oops_Tags {
+
+	/**
+	 * Get an instance of the class.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return object Returns the instance.
+	 */
+	public static function instance() {
+
+		// Varialbe for the instance to be used outside the class.
+		static $instance = null;
+
+		if ( is_null( $instance ) ) {
+
+			// Set variable for new instance.
+			$instance = new self;
+
+			// Current post-date/time and author.
+			$instance ->posted_on();
+
+			// The published date.
+			$instance ->time_link();
+
+		}
+
+		// Return the instance.
+		return $instance;
+
+	}
+
+	/**
+	 * Constructor method.
+	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @return self
+	 */
+	private function __construct() {
+
+		// Flush out the transients used in twentyseventeen_categorized_blog.
+		add_action( 'edit_category', [ $this, 'category_transient_flusher' ] );
+		add_action( 'save_post', [ $this, 'category_transient_flusher' ] );
+
+	}
+
 	/**
 	 * Prints HTML with meta information for the current post-date/time and author.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
 	 */
-	function twentyseventeen_posted_on() {
+	public function posted_on() {
 
 		// Get the author name; wrap it in a link.
 		$byline = sprintf(
@@ -23,16 +83,19 @@ if ( ! function_exists( 'twentyseventeen_posted_on' ) ) :
 		);
 
 		// Finally, let's write all of this to the page.
-		echo '<span class="posted-on">' . twentyseventeen_time_link() . '</span><span class="byline"> ' . $byline . '</span>';
+		return '<span class="posted-on">' . Oops_Tags::time_link() . '</span><span class="byline"> ' . $byline . '</span>';
+
 	}
-endif;
 
-
-if ( ! function_exists( 'twentyseventeen_time_link' ) ) :
 	/**
 	 * Gets a nicely formatted string for the published date.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
 	 */
-	function twentyseventeen_time_link() {
+	public function time_link() {
+
 		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
 			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
@@ -52,15 +115,17 @@ if ( ! function_exists( 'twentyseventeen_time_link' ) ) :
 			__( '<span class="screen-reader-text">Posted on</span> %s', 'twentyseventeen-oops' ),
 			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 		);
+
 	}
-endif;
 
-
-if ( ! function_exists( 'twentyseventeen_entry_footer' ) ) :
 	/**
 	 * Prints HTML with meta information for the categories, tags and comments.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
 	 */
-	function twentyseventeen_entry_footer() {
+	public function entry_footer() {
 
 		/* translators: used between list items, there is a space after the comma */
 		$separate_meta = __( ', ', 'twentyseventeen-oops' );
@@ -72,36 +137,34 @@ if ( ! function_exists( 'twentyseventeen_entry_footer' ) ) :
 		$tags_list = get_the_tag_list( '', $separate_meta );
 
 		// We don't want to output .entry-footer if it will be empty, so make sure its not.
-		if ( ( ( twentyseventeen_categorized_blog() && $categories_list ) || $tags_list ) || get_edit_post_link() ) {
+		if ( ( ( Oops_Tags::categorized_blog() && $categories_list ) || $tags_list ) || get_edit_post_link() ) {
 
 			echo '<footer class="entry-footer">';
 
 			if ( 'post' === get_post_type() ) {
-				if ( ( $categories_list && twentyseventeen_categorized_blog() ) || $tags_list ) {
+				if ( ( $categories_list && Oops_Tags::categorized_blog() ) || $tags_list ) {
 					echo '<span class="cat-tags-links">';
 
 						// Make sure there's more than one category before displaying.
-					if ( $categories_list && twentyseventeen_categorized_blog() ) {
-						echo '<span class="cat-links">' . twentyseventeen_get_svg( array( 'icon' => 'folder-open' ) ) . '<span class="screen-reader-text">' . __( 'Categories', 'twentyseventeen-oops' ) . '</span>' . $categories_list . '</span>';
+					if ( $categories_list && Oops_Tags::categorized_blog() ) {
+						echo '<span class="cat-links">' . Oops_Icons::get_svg( [ 'icon' => 'folder-open' ] ) . '<span class="screen-reader-text">' . __( 'Categories', 'twentyseventeen-oops' ) . '</span>' . $categories_list . '</span>';
 					}
 
 					if ( $tags_list && ! is_wp_error( $tags_list ) ) {
-						echo '<span class="tags-links">' . twentyseventeen_get_svg( array( 'icon' => 'hashtag' ) ) . '<span class="screen-reader-text">' . __( 'Tags', 'twentyseventeen-oops' ) . '</span>' . $tags_list . '</span>';
+						echo '<span class="tags-links">' . Oops_Icons::get_svg( [ 'icon' => 'hashtag' ] ) . '<span class="screen-reader-text">' . __( 'Tags', 'twentyseventeen-oops' ) . '</span>' . $tags_list . '</span>';
 					}
 
 					echo '</span>';
 				}
 			}
 
-			twentyseventeen_edit_link();
+			Oops_Tags::edit_link();
 
 			echo '</footer> <!-- .entry-footer -->';
 		}
+
 	}
-endif;
 
-
-if ( ! function_exists( 'twentyseventeen_edit_link' ) ) :
 	/**
 	 * Returns an accessibility-friendly link to edit a post or page.
 	 *
@@ -109,8 +172,13 @@ if ( ! function_exists( 'twentyseventeen_edit_link' ) ) :
 	 * (post or page?) so that users understand a bit more where they are in terms
 	 * of the template hierarchy and their content. Helpful when/if the single-page
 	 * layout with multiple posts/pages shown gets confusing.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return string
 	 */
-	function twentyseventeen_edit_link() {
+	public function edit_link() {
+
 		edit_post_link(
 			sprintf(
 				/* translators: %s: Name of current post */
@@ -120,81 +188,118 @@ if ( ! function_exists( 'twentyseventeen_edit_link' ) ) :
 			'<span class="edit-link">',
 			'</span>'
 		);
+
 	}
-endif;
+
+	/**
+	 * Display a front page section.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  WP_Customize_Partial $partial Partial associated with a selective refresh request.
+	 * @param  integer              $id Front page section to display.
+	 */
+	public function front_page_section( $partial = null, $id = 0 ) {
+
+		if ( is_a( $partial, 'WP_Customize_Partial' ) ) {
+
+			// Find out the id and set it up during a selective refresh.
+			global $twentyseventeencounter;
+			$id                     = str_replace( 'panel_', '', $partial->id );
+			$twentyseventeencounter = $id;
+
+		}
+
+		global $post; // Modify the global post object before setting up post data.
+
+		if ( get_theme_mod( 'panel_' . $id ) ) {
+
+			$post = get_post( get_theme_mod( 'panel_' . $id ) );
+			setup_postdata( $post );
+			set_query_var( 'panel', $id );
+
+			get_template_part( 'template-parts/page/content', 'front-page-panels' );
+
+			wp_reset_postdata();
+
+		} elseif ( is_customize_preview() ) {
+
+			// The output placeholder anchor.
+			echo '<article class="panel-placeholder panel twentyseventeen-panel twentyseventeen-panel' . $id . '" id="panel' . $id . '"><span class="twentyseventeen-panel-title">' . sprintf( __( 'Front Page Section %1$s Placeholder', 'twentyseventeen-oops' ), $id ) . '</span></article>';
+
+		}
+
+	}
+
+	/**
+	 * Returns true if a blog has more than 1 category.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return bool
+	 */
+	public function categorized_blog() {
+
+		$category_count = get_transient( 'twentyseventeen_categories' );
+
+		if ( false === $category_count ) {
+
+			// Create an array of all the categories that are attached to posts.
+			$categories = get_categories(
+				[
+					'fields'     => 'ids',
+					'hide_empty' => 1,
+					// We only need to know if there is more than one category.
+					'number'     => 2,
+				]
+			);
+
+			// Count the number of categories that are attached to the posts.
+			$category_count = count( $categories );
+
+			set_transient( 'twentyseventeen_categories', $category_count );
+		}
+
+		// Allow viewing case of 0 or 1 categories in post preview.
+		if ( is_preview() ) {
+			return true;
+		}
+
+		return $category_count > 1;
+
+	}
+
+	/**
+	 * Flush out the transients used in twentyseventeen_categorized_blog.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function category_transient_flusher() {
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// Like, beat it. Dig?
+		delete_transient( 'twentyseventeen_categories' );
+
+	}
+
+}
 
 /**
- * Display a front page section.
+ * Put an instance of the class into a function.
  *
- * @param WP_Customize_Partial $partial Partial associated with a selective refresh request.
- * @param integer              $id Front page section to display.
+ * @since  1.0.0
+ * @access public
+ * @return object Returns an instance of the class.
  */
-function twentyseventeen_front_page_section( $partial = null, $id = 0 ) {
-	if ( is_a( $partial, 'WP_Customize_Partial' ) ) {
-		// Find out the id and set it up during a selective refresh.
-		global $twentyseventeencounter;
-		$id                     = str_replace( 'panel_', '', $partial->id );
-		$twentyseventeencounter = $id;
-	}
+function oops_tags() {
 
-	global $post; // Modify the global post object before setting up post data.
-	if ( get_theme_mod( 'panel_' . $id ) ) {
-		$post = get_post( get_theme_mod( 'panel_' . $id ) );
-		setup_postdata( $post );
-		set_query_var( 'panel', $id );
+	return Oops_Tags::instance();
 
-		get_template_part( 'template-parts/page/content', 'front-page-panels' );
-
-		wp_reset_postdata();
-	} elseif ( is_customize_preview() ) {
-		// The output placeholder anchor.
-		echo '<article class="panel-placeholder panel twentyseventeen-panel twentyseventeen-panel' . $id . '" id="panel' . $id . '"><span class="twentyseventeen-panel-title">' . sprintf( __( 'Front Page Section %1$s Placeholder', 'twentyseventeen-oops' ), $id ) . '</span></article>';
-	}
 }
 
-/**
- * Returns true if a blog has more than 1 category.
- *
- * @return bool
- */
-function twentyseventeen_categorized_blog() {
-	$category_count = get_transient( 'twentyseventeen_categories' );
-
-	if ( false === $category_count ) {
-		// Create an array of all the categories that are attached to posts.
-		$categories = get_categories(
-			array(
-				'fields'     => 'ids',
-				'hide_empty' => 1,
-				// We only need to know if there is more than one category.
-				'number'     => 2,
-			)
-		);
-
-		// Count the number of categories that are attached to the posts.
-		$category_count = count( $categories );
-
-		set_transient( 'twentyseventeen_categories', $category_count );
-	}
-
-	// Allow viewing case of 0 or 1 categories in post preview.
-	if ( is_preview() ) {
-		return true;
-	}
-
-	return $category_count > 1;
-}
-
-
-/**
- * Flush out the transients used in twentyseventeen_categorized_blog.
- */
-function twentyseventeen_category_transient_flusher() {
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
-	}
-	// Like, beat it. Dig?
-	delete_transient( 'twentyseventeen_categories' );
-}
-add_action( 'edit_category', 'twentyseventeen_category_transient_flusher' );
-add_action( 'save_post', 'twentyseventeen_category_transient_flusher' );
+// Run an instance of the class.
+oops_tags();
