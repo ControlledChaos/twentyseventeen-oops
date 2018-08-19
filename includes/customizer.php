@@ -79,7 +79,7 @@ class Oops_Customizer {
 			'colorscheme_hue', [
 				'default'           => 250,
 				'transport'         => 'postMessage',
-				'sanitize_callback' => [ $this, 'absint' ], // The hue is stored as a positive integer.
+				'sanitize_callback' => 'absint', // The hue is stored as a positive integer.
 			]
 		);
 
@@ -154,7 +154,7 @@ class Oops_Customizer {
 			$wp_customize->add_setting(
 				'panel_' . $i, [
 					'default'           => false,
-					'sanitize_callback' => [ $this, 'absint' ],
+					'sanitize_callback' => 'absint',
 					'transport'         => 'postMessage',
 				]
 			);

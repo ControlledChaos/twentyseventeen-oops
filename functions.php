@@ -2,11 +2,16 @@
 /**
  * Twenty Seventeen Oops! functions and definitions.
  *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ * Based on the Twenty Seventeen theme.
  *
- * @package     WordPress
+ * @link       https://wordpress.org/themes/twentyseventeen/
+ *
+ * @package    WordPress
  * @subpackage Twenty_Seventeen_Oops
  * @since      1.0.0
+ *
+ * @todo       Rename this when development is further along.
+ *             It's best not to have it tied to a year.
  */
 
 /*
@@ -131,6 +136,27 @@ final class Oops_Functions {
 	}
 
 	/**
+	 * Define plugin constants.
+	 *
+	 * @since  1.0.0
+	 * @access private
+	 * @return void
+	 */
+	private function constants() {
+
+		/**
+		 * The current version of the theme.
+		 *
+		 * @since  1.0.0
+		 * @return string Returns the latest plugin version.
+		 */
+		if ( ! defined( 'OOPS_VERSION' ) ) {
+			define( 'OOPS_VERSION', '1.0.0' );
+		}
+
+	}
+
+	/**
 	 * Throw error on object clone.
 	 *
 	 * @since  1.0.0
@@ -140,7 +166,7 @@ final class Oops_Functions {
 	public function __clone() {
 
 		// Cloning instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, __( 'This is not allowed.', 'controlled-chaos-plugin' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'This is not allowed.', 'twentyseventeen-oops' ), OOPS_VERSION );
 
 	}
 
@@ -154,51 +180,7 @@ final class Oops_Functions {
 	public function __wakeup() {
 
 		// Unserializing instances of the class is forbidden.
-		_doing_it_wrong( __FUNCTION__, __( 'This is not allowed.', 'controlled-chaos-plugin' ), '1.0.0' );
-
-	}
-
-	/**
-	 * Define plugin constants.
-	 *
-	 * @since  1.0.0
-	 * @access private
-	 * @return void
-	 */
-	private function constants() {
-
-		/**
-		 * Keeping the version at 1.0.0 as this is a starter plugin but
-		 * you may want to start counting as you develop for your use case.
-		 *
-		 * @since  1.0.0
-		 * @return string Returns the latest plugin version.
-		 */
-		if ( ! defined( 'OOPS_VERSION' ) ) {
-			define( 'OOPS_VERSION', '1.0.0' );
-		}
-
-		/**
-		 * Plugin folder path.
-		 *
-		 * @since  1.0.0
-		 * @return string Returns the filesystem directory path (with trailing slash)
-		 *                for the plugin __FILE__ passed in.
-		 */
-		if ( ! defined( 'OOPS_PATH' ) ) {
-			define( 'OOPS_PATH', plugin_dir_path( __FILE__ ) );
-		}
-
-		/**
-		 * Plugin folder URL.
-		 *
-		 * @since  1.0.0
-		 * @return string Returns the URL directory path (with trailing slash)
-		 *                for the plugin __FILE__ passed in.
-		 */
-		if ( ! defined( 'OOPS_URL' ) ) {
-			define( 'OOPS_URL', plugin_dir_url( __FILE__ ) );
-		}
+		_doing_it_wrong( __FUNCTION__, __( 'This is not allowed.', 'twentyseventeen-oops' ), OOPS_VERSION );
 
 	}
 
@@ -253,30 +235,26 @@ final class Oops_Functions {
 	 * @return void
 	 */
 	public function setup() {
-		/*
-		* Make theme available for translation.
-		* Translations can be filed at WordPress.org. See: https://translate.wordpress.org/projects/wp-themes/twentyseventeen
-		* If you're building a theme based on Twenty Seventeen, use a find and replace
-		* to change 'twentyseventeen-oops' to the name of your theme in all the template files.
-		*/
+
+		/**
+		 * Make theme available for translation.
+		 */
 		load_theme_textdomain( 'twentyseventeen-oops' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
 
-		/*
-		* Let WordPress manage the document title.
-		* By adding theme support, we declare that this theme does not use a
-		* hard-coded <title> tag in the document head, and expect WordPress to
-		* provide it for us.
-		*/
+		/**
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and expect WordPress to
+		 * provide it for us.
+		 */
 		add_theme_support( 'title-tag' );
 
-		/*
-		* Enable support for Post Thumbnails on posts and pages.
-		*
-		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		*/
+		/**
+		 * Enable support for Post Thumbnails on posts and pages.
+		 */
 		add_theme_support( 'post-thumbnails' );
 
 		add_image_size( 'twentyseventeen-featured-image', 2000, 1200, true );
@@ -294,10 +272,10 @@ final class Oops_Functions {
 			]
 		);
 
-		/*
-		* Switch default core markup for search form, comment form, and comments
-		* to output valid HTML5.
-		*/
+		/**
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
+		 */
 		add_theme_support(
 			'html5', [
 				'comment-form',
@@ -307,11 +285,11 @@ final class Oops_Functions {
 			]
 		);
 
-		/*
-		* Enable support for Post Formats.
-		*
-		* See: https://codex.wordpress.org/Post_Formats
-		*/
+		/**
+		 * Enable support for Post Formats.
+		 *
+		 * See: https://codex.wordpress.org/Post_Formats
+		 */
 		add_theme_support(
 			'post-formats', [
 				'aside',
@@ -337,11 +315,20 @@ final class Oops_Functions {
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
-		/*
-		* This theme styles the visual editor to resemble the theme style,
-		* specifically font, colors, and column width.
-		*/
-		add_editor_style( [ 'assets/css/editor-style.css', $this::fonts_url() ] );
+		/**
+		 * This theme styles the visual editor to resemble the theme style,
+		 * specifically font, colors, and column width.
+		 *
+		 * Enqueues only if the Gutenberg plugin is active.
+		 *
+		 * @since  1.0.0
+		 *
+		 * @todo Address this when the block editor is in WordPress core.
+		 * @todo Think about how to enqueue this by post type support for the block editor.
+		 */
+		if ( ! function_exists( 'the_gutenberg_project' ) ) {
+			add_editor_style( [ 'assets/css/editor-style.css', $this::fonts_url() ] );
+		}
 
 		// Define and register starter content to showcase the theme on new sites.
 		$starter_content = [
@@ -443,8 +430,7 @@ final class Oops_Functions {
 		/**
 		 * Filters Twenty Seventeen array of starter content.
 		 *
-		 * @since Twenty Seventeen 1.1
-		 *
+		 * @since  1.0.0
 		 * @param array $starter_content Array of starter content.
 		 */
 		$starter_content = apply_filters( 'twentyseventeen_starter_content', $starter_content );
@@ -487,8 +473,7 @@ final class Oops_Functions {
 		/**
 		 * Filter Twenty Seventeen content width of the theme.
 		 *
-		 * @since Twenty Seventeen 1.0
-		 *
+		 * @access public
 		 * @param int $content_width Content width in pixels.
 		 */
 		$GLOBALS['content_width'] = apply_filters( 'twentyseventeen_content_width', $content_width );
@@ -506,11 +491,11 @@ final class Oops_Functions {
 
 		$fonts_url = '';
 
-		/*
-		* Translators: If there are characters in your language that are not
-		* supported by Libre Franklin, translate this to 'off'. Do not translate
-		* into your own language.
-		*/
+		/**
+		 * Translators: If there are characters in your language that are not
+		 * supported by Libre Franklin, translate this to 'off'. Do not translate
+		 * into your own language.
+		 */
 		$libre_franklin = _x( 'on', 'Libre Franklin font: on or off', 'twentyseventeen-oops' );
 
 		if ( 'off' !== $libre_franklin ) {
@@ -541,7 +526,7 @@ final class Oops_Functions {
 	 */
 	function resource_hints( $urls, $relation_type ) {
 
-		if ( wp_style_is( 'twentyseventeen-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+		if ( wp_style_is( 'oops-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
 			$urls[] = [
 				'href' => 'https://fonts.gstatic.com',
 				'crossorigin',
@@ -558,8 +543,6 @@ final class Oops_Functions {
 	 * @since  1.0.0
 	 * @access public
 	 * @return void
-	 *
-	 * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
 	 */
 	function widgets_init() {
 		register_sidebar(
@@ -622,13 +605,13 @@ final class Oops_Functions {
 	 * @access public
 	 * @return string
 	 */
-	function twentyseventeen_colors_css_wrap() {
+	function colors_css_wrap() {
 
 		if ( 'custom' !== get_theme_mod( 'colorscheme' ) && ! is_customize_preview() ) {
 			return;
 		}
 
-		require_once( get_theme_file_path( '/includes/color-patterns.php' ) );
+		require_once get_theme_file_path( '/includes/color-patterns.php' );
 		$hue = absint( get_theme_mod( 'colorscheme_hue', 250 ) );
 
 		$customize_preview_data_hue = '';
@@ -791,6 +774,7 @@ final class Oops_Functions {
 		if ( isset( $attr['sizes'] ) ) {
 			$html = str_replace( $attr['sizes'], '100vw', $html );
 		}
+
 		return $html;
 
 	}
@@ -828,7 +812,13 @@ final class Oops_Functions {
 	 */
 	function front_page_template( $template ) {
 
-		return is_home() ? '' : $template;
+		if ( is_home() ) {
+			$template = '';
+		} else {
+			$template = $template;
+		}
+
+		return $template;
 
 	}
 

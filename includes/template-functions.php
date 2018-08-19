@@ -63,6 +63,7 @@ function twentyseventeen_body_classes( $classes ) {
 	$classes[] = 'colors-' . $colors;
 
 	return $classes;
+
 }
 add_filter( 'body_class', 'twentyseventeen_body_classes' );
 

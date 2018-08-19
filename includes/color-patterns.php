@@ -32,15 +32,14 @@ class Oops_Color_Patterns {
 	/**
 	 * Generate the CSS for the current custom color scheme.
 	 */
-	function custom_colors_css() {
+	public static function custom_colors_css() {
 
 		$hue = absint( get_theme_mod( 'colorscheme_hue', 250 ) );
 
 		/**
 		 * Filter Twenty Seventeen default saturation level.
 		 *
-		 * @since Twenty Seventeen 1.0
-		 *
+		 * @since 1.0.0
 		 * @param int $saturation Color saturation level.
 		 */
 		$saturation         = absint( apply_filters( 'oops_custom_colors_saturation', 50 ) );
@@ -593,13 +592,12 @@ body.colors-custom,
 		/**
 		 * Filters Twenty Seventeen custom colors CSS.
 		 *
-		 * @since Twenty Seventeen 1.0
-		 *
+		 * @since  1.0.0
 		 * @param string $css        Base theme colors CSS.
 		 * @param int    $hue        The user's selected color hue.
 		 * @param string $saturation Filtered theme color saturation level.
 		 */
-		return apply_filters( 'oops_custom_colors_css', $css, $hue, $saturation );
+		return apply_filters( 'custom_colors_css', $css, $hue, $saturation );
 
 	}
 
